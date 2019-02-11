@@ -236,9 +236,6 @@ namespace RegistryUWP
                 {
                     ValueSet test = response.Message;
 
-                    int x = response.Message.Count;
-                    var a = response.Message.Keys;
-
                     // Get the data  that the service sent to us.
                     if (response.Message["verb"] as string == "RegistryReadResult")
                     {
