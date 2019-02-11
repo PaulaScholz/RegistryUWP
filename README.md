@@ -13,7 +13,7 @@ If the user presses "Yes" on the elevation dialog raised by Windows, the Registr
 
 If "notepad" is already on the list, then pushing the button will remove it and Notepad will no longer be started on reboot.
 
-![Figure 1 Registry UWP](images/Fig1_RegistryUWPSample.png)
+![Figure 1 Registry UWP](/images/Fig1_RegistryUWPSample.png)
 
 *Figure 1 - RegistryUWP Sample*
 
@@ -23,7 +23,7 @@ In the application we have a ListView, where the Startup program list is display
 
 The Visual Studio solution is shown below.  There are four projects.
 
-![Figure 2 Registry UWP Solution](images/Fig2_RegistryUWPSolution.png)
+![Figure 2 Registry UWP Solution](/images/Fig2_RegistryUWPSolution.png)
 
 *Figure 2 - Visual Studio Solution*
 
