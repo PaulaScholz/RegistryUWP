@@ -1,0 +1,32 @@
+C:\dev\RegistryUWP\RegistryPackaging\Images\LockScreenLogo.scale-200.png
+C:\dev\RegistryUWP\RegistryPackaging\Images\Square150x150Logo.scale-200.png
+C:\dev\RegistryUWP\RegistryPackaging\Images\Square44x44Logo.scale-200.png
+C:\dev\RegistryUWP\RegistryPackaging\Images\Square44x44Logo.targetsize-24_altform-unplated.png
+C:\dev\RegistryUWP\RegistryPackaging\Images\StoreLogo.png
+C:\dev\RegistryUWP\RegistryPackaging\Images\Wide310x150Logo.scale-200.png
+C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd
+C:\dev\RegistryUWP\RegistryPackaging\bin\x86\Debug\resources.pri
+C:\dev\RegistryUWP\ElevatedRegistryWrite\bin\Debug\ElevatedRegistryWrite.exe
+C:\dev\RegistryUWP\ElevatedRegistryWrite\bin\Debug\ElevatedRegistryWrite.exe.config
+C:\dev\RegistryUWP\ElevatedRegistryWrite\bin\Debug\ElevatedRegistryWrite.pdb
+C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.WindowsRuntime.dll
+C:\dev\RegistryUWP\RegistryReadAppService\bin\Debug\RegistryReadAppService.exe
+C:\dev\RegistryUWP\RegistryReadAppService\bin\Debug\RegistryReadAppService.exe.config
+C:\dev\RegistryUWP\RegistryReadAppService\bin\Debug\RegistryReadAppService.pdb
+C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\RegistryUWP.exe
+C:\Users\v-pauls\.nuget\packages\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\6.2.2\runtimes\win10-x86\lib\uap10.0.15138\System.Runtime.dll
+C:\Program Files (x86)\Windows Kits\10\bin\10.0.17763.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd
+C:\dev\RegistryUWP\SampleShell_3\Properties\Default.rd.xml
+C:\dev\RegistryUWP\SampleShell_3\Assets\LockScreenLogo.scale-200.png
+C:\dev\RegistryUWP\SampleShell_3\Assets\SplashScreen.scale-200.png
+C:\dev\RegistryUWP\SampleShell_3\Assets\Square150x150Logo.scale-200.png
+C:\dev\RegistryUWP\SampleShell_3\Assets\Square44x44Logo.scale-200.png
+C:\dev\RegistryUWP\SampleShell_3\Assets\Square44x44Logo.targetsize-24_altform-unplated.png
+C:\dev\RegistryUWP\SampleShell_3\Assets\StoreLogo.png
+C:\dev\RegistryUWP\SampleShell_3\Assets\Wide310x150Logo.scale-200.png
+C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\RegistryUWP.xr.xml
+C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\App.xbf
+C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\MainPage.xbf
+C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\RegistryPage.xbf
+C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd
+C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\Core\RegistryUWP.exe

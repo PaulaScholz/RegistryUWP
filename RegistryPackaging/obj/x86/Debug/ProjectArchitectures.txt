@@ -1,0 +1,2 @@
+C:\dev\RegistryUWP\RegistryPackaging\RegistryPackaging.wapproj;x86
+C:\dev\RegistryUWP\SampleShell_3\RegistryUWP.csproj;x86

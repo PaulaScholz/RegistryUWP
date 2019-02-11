@@ -1,0 +1,30 @@
+﻿<Page
+    x:Class="RegistryUWP.RegistryPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:RegistryUWP"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>        
+        
+        <StackPanel Grid.Row="0" Orientation="Vertical"  HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock HorizontalAlignment="Center" Text="UWP Registry Sample" Margin="0,0,0,40" FontSize="72"/>
+            <TextBlock HorizontalAlignment="Center" Text="Calls Win32 'fullTrust' app that gets Startup program names from Registry." />
+            <TextBlock HorizontalAlignment="Center" Text="When button pressed, 'fullTrust' app launches elevated Win32 app that writes to Registry." />
+            <TextBlock HorizontalAlignment="Center" Text="S-Mode is Enabled." FontWeight="Bold" Visibility="{x:Bind IsSMode}"/>
+            <TextBlock HorizontalAlignment="Center" Text="S-Mode is Disabled." Visibility="{x:Bind NotSMode}" />
+        </StackPanel>
+        <ListView Grid.Row="1"  x:Name="StartupProgramsListView" FontWeight="Bold" Background="LightGray" Width="150" HorizontalAlignment="Center" Margin="0,10,0,10" Header="Startup Programs" ItemsSource="{x:Bind StartupProgramNames, Mode=OneWay}" />
+            
+        <Button Grid.Row="2" x:Name="RegistryButton" HorizontalAlignment="Center"  Content="Change Registry" Click="RegistryButton_Click" />            
+
+    </Grid>
+</Page>
