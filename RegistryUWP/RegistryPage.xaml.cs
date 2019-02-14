@@ -1,4 +1,18 @@
-﻿using System;
+﻿//***********************************************************************
+//
+// Copyright (c) 2019 Microsoft Corporation. All rights reserved.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+//**********************************************************************​
+
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Windows.Foundation.Collections;
@@ -81,7 +95,7 @@ namespace RegistryUWP
         }
 
         /// <summary>
-        /// Launch the full trust WinSatInfo Win32 process.
+        /// Launch the full trust RegistryReadAppService Win32 process.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -138,8 +152,8 @@ namespace RegistryUWP
                 {
                     int exitCode = (int)response.Message["exitcode"];
 
-                    // we're done with the new assessmet, refresh the interface by telling
-                    // our WinSatInfo program to get the assessment, which will refresh the UI
+                    // we're done with writing the registry, refresh the interface by telling
+                    // our RegistryReadAppService to get the new list, which will refresh the UI
                     if (0 == exitCode)
                     {
                         MainPage.Current?.NotifyUser("ElevatedRegistrtyWrite action success.", NotifyType.StatusMessage);

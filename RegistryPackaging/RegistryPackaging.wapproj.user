@@ -4,4 +4,18 @@
     <DebuggerFlavor>AppHostLocalDebugger</DebuggerFlavor>
     <RemoteDebugEnabled>False</RemoteDebugEnabled>
   </PropertyGroup>
+  <PropertyGroup>
+    <AppxPackageIsForStore>True</AppxPackageIsForStore>
+    <AppxShowAllApps>False</AppxShowAllApps>
+    <AppxBuildConfigurationSelection>x86|x64</AppxBuildConfigurationSelection>
+    <PackageOptionalProjectsInIdeBuilds>False</PackageOptionalProjectsInIdeBuilds>
+    <Source>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</Source>
+    <SmallTileSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</SmallTileSource>
+    <MediumTileSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</MediumTileSource>
+    <WideTileSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</WideTileSource>
+    <LargeTileSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</LargeTileSource>
+    <AppIconSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</AppIconSource>
+    <SplashScreenSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</SplashScreenSource>
+    <PackageLogoSource>C:\Users\v-pauls\Pictures\RegistryUWPicon.png</PackageLogoSource>
+  </PropertyGroup>
 </Project>

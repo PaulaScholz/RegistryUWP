@@ -1,4 +1,18 @@
-﻿using System;
+﻿//***********************************************************************
+//
+// Copyright (c) 2019 Microsoft Corporation. All rights reserved.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+//
+//**********************************************************************​
+
+using System;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.AppService;
 using Windows.Foundation.Collections;
@@ -25,14 +39,14 @@ namespace RegistryReadAppService
 
         static void Main(string[] args)
         {
-            // The AppServiceName must match the name declared in the WinSatPackage packaging project's Package.appxmanifest file.
+            // The AppServiceName must match the name declared in the RegistryPackaging project's Package.appxmanifest file.
             // You'll have to view it as code to see the XML.  It will look like this:
             //
             //       <Extensions>
             //           <uap:Extension Category="windows.appService">
             //              <uap:AppService Name="CommunicationService" />
             //          </uap:Extension>
-            //          <desktop:Extension Category="windows.fullTrustProcess" Executable="WinSatInfo\WinSatInfo.exe" />
+            //          <desktop:Extension Category="windows.fullTrustProcess" Executable="RegistryReadAppService\RegistryReadAppService.exe" />
             //       </Extensions>
             //
             connection.AppServiceName = "CommunicationService";
@@ -60,7 +74,7 @@ namespace RegistryReadAppService
                 // Console Application.  A "Windows Application" is simply a headless console app.
 
                 //Console.WriteLine("Detatch your debugger from the UWP app and attach it to WinSatInfo.");
-                //Console.WriteLine("Set your breakpoint in WinSatInfo and then press Enter to continue.");
+                //Console.WriteLine("Set your breakpoint in RegistryReadAppService and then press Enter to continue.");
                 //Console.ReadLine();
 
                 // Let the app service connection handlers respond to events.  If this Win32 app had a Window,
@@ -165,9 +179,6 @@ namespace RegistryReadAppService
             ProcessStartInfo info = new ProcessStartInfo();
             info.Verb = "runas";
             info.UseShellExecute = true;
-
-            // we want to show the WinSAT console window while it executes its assessment
-            info.WindowStyle = ProcessWindowStyle.Normal;
 
             // this path is a proxy for the Package
             string localAppDataPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);

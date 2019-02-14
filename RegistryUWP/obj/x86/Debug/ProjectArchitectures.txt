@@ -1,1 +1,1 @@
-C:\dev\RegistryUWP\SampleShell_3\RegistryUWP.csproj;x86
+C:\dev\RegistryUWP\RegistryUWP\RegistryUWP.csproj;x86

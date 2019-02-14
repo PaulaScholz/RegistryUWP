@@ -10,22 +10,22 @@
     <PackageArchitecture>x86</PackageArchitecture>
     <PackageIdentityName>21e7d643-8cb7-44bd-a593-cae07e0dc814</PackageIdentityName>
     <PackageIdentityPublisher>CN=v-pauls</PackageIdentityPublisher>
-    <IntermediateOutputPath>C:\dev\RegistryUWP\SampleShell_3\obj\x86\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>C:\dev\RegistryUWP\RegistryUWP\obj\x86\Debug\</IntermediateOutputPath>
     <RemoteDeploymentType></RemoteDeploymentType>
     <PackageRegistrationPath></PackageRegistrationPath>
     <RemoveNonLayoutFiles>true</RemoveNonLayoutFiles>
     <DeployOptionalPackages>false</DeployOptionalPackages>
     <WindowsSdkPath>C:\Program Files %28x86%29\Windows Kits\10\</WindowsSdkPath>
-    <LayoutDir>C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\AppX</LayoutDir>
+    <LayoutDir>C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\AppX</LayoutDir>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\Core\AppxManifest.xml">
+    <AppXManifest Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\RegistryUWP.exe">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\RegistryUWP.exe">
       <PackagePath>entrypoint\RegistryUWP.exe</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\v-pauls\.nuget\packages\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\6.2.2\runtimes\win10-x86\lib\uap10.0.15138\System.Runtime.dll">
@@ -34,55 +34,55 @@
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.17763.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Properties\Default.rd.xml">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Properties\Default.rd.xml">
       <PackagePath>Properties\Default.rd.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\LockScreenLogo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\LockScreenLogo.scale-200.png">
       <PackagePath>Assets\LockScreenLogo.scale-200.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\SplashScreen.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\SplashScreen.scale-200.png">
       <PackagePath>Assets\SplashScreen.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\Square150x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\Square150x150Logo.scale-200.png">
       <PackagePath>Assets\Square150x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\Square44x44Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\Square44x44Logo.scale-200.png">
       <PackagePath>Assets\Square44x44Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\Square44x44Logo.targetsize-24_altform-unplated.png">
       <PackagePath>Assets\Square44x44Logo.targetsize-24_altform-unplated.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\StoreLogo.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\StoreLogo.png">
       <PackagePath>Assets\StoreLogo.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\Assets\Wide310x150Logo.scale-200.png">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\Assets\Wide310x150Logo.scale-200.png">
       <PackagePath>Assets\Wide310x150Logo.scale-200.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\RegistryUWP.xr.xml">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\RegistryUWP.xr.xml">
       <PackagePath>RegistryUWP.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\App.xbf">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\RegistryPage.xbf">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\RegistryPage.xbf">
       <PackagePath>RegistryPage.xbf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\resources.pri">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\dev\RegistryUWP\SampleShell_3\bin\x86\Debug\Core\RegistryUWP.exe">
+    <AppxPackagedFile Include="C:\dev\RegistryUWP\RegistryUWP\bin\x86\Debug\Core\RegistryUWP.exe">
       <PackagePath>RegistryUWP.exe</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>
