@@ -2,7 +2,7 @@
 ## Windows - Developer Incubation and Learning - Paula Scholz
 
 <figure>
-  <img src="/images/RegistryUWPIcon.png" alt="Registry UWP Icon"/>
+  <img src="/images/RegistryUWPicon.png" alt="Registry UWP Icon"/>
 </figure>
 
 Many operations in Windows require access to the Registry, a hierarchical database for storing many kinds of system and applications settings, either to read key values or to write them.  However, in a Universal Windows Platform application, access to the Registry is forbidden.
