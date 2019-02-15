@@ -125,7 +125,7 @@ namespace RegistryUWP
         {
             base.OnBackgroundActivated(args);
 
-            // if we've been trigggered by the app service
+            // if we've been triggered by the app service
             if (args.TaskInstance.TriggerDetails is AppServiceTriggerDetails)
             {
                 BackgroundTaskDeferral appServiceDeferral = args.TaskInstance.GetDeferral();
