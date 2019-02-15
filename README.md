@@ -170,3 +170,107 @@ This same static instance technique is also implemented in `MainPage.xaml`, whic
   <img src="/images/SampleShellMainPage.png" alt="Main Page"/>
   <figcaption>RegistryUWP MainPage</figcaption>
 </figure>
+
+It has a method we will call a number of times through our globally-scoped static `MainPage.Current` reference, `NotifyUser`, which looks like this:
+
+```c#
+        #region NotifyUser code
+        /// <summary>
+        /// Display a message to the user in the MainPage Status area.
+        /// This method may be called from any thread.
+        /// </summary>
+        /// <param name="strMessage">The string message to display.</param>
+        /// <param name="type">NotifyType.StatusMessage or NotifyType.ErrorMessage</param>
+        public void NotifyUser(string strMessage, NotifyType type)
+        {
+            // If called from the UI thread, then update immediately.
+            // Otherwise, schedule a task on the UI thread to perform the update.
+            if (Dispatcher.HasThreadAccess)
+            {
+                UpdateStatus(strMessage, type);
+            }
+            else
+            {
+                var task = Dispatcher.RunAsync(CoreDispatcherPriority.Normal, () => UpdateStatus(strMessage, type));
+            }
+        }
+```
+
+The `NotifyType` is an enumeration for the type of notification we want:
+
+```c#
+    /// <summary>
+    /// The XAML will display a green background for a Status message, and a red background for an ErrorMessage,
+    /// blue/violet for a warning message.  ClearMessage type clears the Status box and sets it to green.
+    /// </summary>
+    public enum NotifyType
+    {
+        StatusMessage,
+        WarningMessage,
+        ErrorMessage,
+        ClearMessage
+    };
+```
+
+You will see this code used many times throughout the sample to communicate status, warning, and error messages to the user.
+
+When `MainPage` is loaded, the `Frame` declared in its xaml is directed to navigate to the page that does most of the work in our sample, `RegistryPage`, like this:
+
+```c#
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            shellFrame.Navigate(typeof(RegistryPage));
+        }
+```
+
+The `RegistryPage` constructor has a similar pattern.  It looks like this:
+
+```c#
+        public RegistryPage()
+        {
+            // set our static 
+            Current = this;
+
+            this.InitializeComponent();
+
+            Loaded += RegistryPage_Loaded;
+
+            // Call NotifyUser through the static MainPage.Current and say hello.
+            //
+            // For those unfamiliar with the C# null conditional operator, see
+            // https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/operators/null-conditional-operators
+            if(IsSMode)
+            {
+                MainPage.Current?.NotifyUser(string.Format("S-Mode is enabled! Processor mode: {0}", OSBitness), NotifyType.WarningMessage);
+            }
+            else
+            {
+                MainPage.Current?.NotifyUser(string.Format("S-Mode is disabled. Processor mode: {0}.", OSBitness ), NotifyType.StatusMessage);
+            }
+        }
+```
+
+`RegistryPage` has a `bool` property called `IsSMode` which indicates if the machine we're running on is [Windows 10 S-Mode](https://www.microsoft.com/en-us/windows/s-mode).  It's backing store variable is instantiated like this:
+
+```c#
+private bool isSMode = Windows.System.Profile.WindowsIntegrityPolicy.IsEnabled;
+```
+
+The `RegistryPage` is where we launch the fullTrust Win32 process, `RegistryReadAppService`.  This is done in its `Loaded` event handler, like this:
+
+```c#
+        /// <summary>
+        /// Launch the full trust RegistryReadAppService Win32 process.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private async void RegistryPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            // get Startup Programs from the Win32 application.  When launched, it will query the Registry
+            // for the key value and send it back to us through our Connection_RequestReceived event handler.
+            await Windows.ApplicationModel.FullTrustProcessLauncher.LaunchFullTrustProcessForCurrentAppAsync();
+
+        }
+```
+
+
