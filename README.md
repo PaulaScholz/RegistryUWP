@@ -45,13 +45,13 @@ Finally, we have the RegistryUWP project at the bottom of the Visual Studio solu
 
 Let's look at how these projects relate to each other:
 
-## RegistryPackaging Project
-
 <figure>
   <img src="/images/RegistryUWP_AppStackPack.png" alt="Visual Studio Solution"/>
   <figcaption>Figure 3 - RegistryUWP Package Applications</figcaption>
 </figure>
 <br/>
+
+## RegistryPackaging Project
 
 The **RegistryPackaging** project is the solution's startup project, and is the [Windows Application Packaging Project](https://docs.microsoft.com/en-us/windows/uwp/porting/desktop-to-uwp-packaging-dot-net) container for our application bundle.  This project contains the packaging manifest where we declare capabilities needed by included application projects.  Note that this project has the 64-bit architecture selected, which is required for the app to write to the HKEY_LOCAL_MACHINE hive.  It is also built for Windows 10, Version 1809 (build 17763), and you need to run this on that version or better to use fullTrust/allowElevation capabilities.
 
