@@ -156,17 +156,17 @@ namespace RegistryUWP
                     // our RegistryReadAppService to get the new list, which will refresh the UI
                     if (0 == exitCode)
                     {
-                        MainPage.Current?.NotifyUser("ElevatedRegistrtyWrite action success.", NotifyType.StatusMessage);
+                        MainPage.Current?.NotifyUser("ElevatedRegistryWrite action success.", NotifyType.StatusMessage);
 
                         GetStartupProgramNames();
                     }
                     else if (1 == exitCode)
                     {
-                        MainPage.Current?.NotifyUser("ElevatedRegistrtyWrite elevation cancelled by user", NotifyType.WarningMessage);
+                        MainPage.Current?.NotifyUser("ElevatedRegistryWrite elevation cancelled by user", NotifyType.WarningMessage);
                     }                    
                     else
                     {
-                        MainPage.Current?.NotifyUser(string.Format("ElevatedRegistrtyWrite error. Return code={0}", exitCode), NotifyType.ErrorMessage);
+                        MainPage.Current?.NotifyUser(string.Format("ElevatedRegistryWrite error. Return code={0}", exitCode), NotifyType.ErrorMessage);
                     }
                 }
                 else
