@@ -11,7 +11,7 @@ In this sample, from the UWP application `RegistryUWP`, we launch a Win32 fullTr
 
 This key's values are the names and locations of the operating system's Startup programs.  We return a string array of these values to the UWP program over an `AppServiceConnection` where they are converted into an `ObservableCollection` and bound to a `ListView` in the user interface.
 
-We can then press a button to add `Notepad.exe` to the list of Startup programs.  This sends a command to `RegistryReadAppService` to launch an elevated process to write to this subkey of the `HKEY_LOCAL_MACHINE` root element, which requires Administrative privilege.  This will only persist to the real machine registry when written by a 64-bit process.  32-bit processes will only change a virtualized registry entry for that user and application, and not the actual `HKEY_LOCAL_MACHINE` element.
+We can then press a button to add `Notepad.exe` to the list of Startup programs.  This sends a command to `RegistryReadAppService` to launch an elevated process to write to this subkey of the `HKEY_LOCAL_MACHINE` root element, which requires Administrative privilege.  This will only persist to the real machine registry when written by a 64-bit process.  32-bit processes will only change a [virtualized registry](https://docs.microsoft.com/en-us/windows/desktop/SysInfo/registry-virtualization) entry for that user and application, and not the actual `HKEY_LOCAL_MACHINE` element.
 
 If the user presses "Yes" on the elevation dialog raised by Windows, the `RegistryReadAppService` launches `ElevatedRegistryWrite.exe` with admin privilege, which adds "notepad" to the list of Startup programs.  Then, when the computer is rebooted, `Notepad.exe` will launch along with the other startup programs.
 
@@ -171,7 +171,7 @@ This same static instance technique is also implemented in `MainPage.xaml`, whic
   <figcaption>RegistryUWP MainPage</figcaption>
 </figure>
 
-It has a method we will call a number of times through our globally-scoped static `MainPage.Current` reference, `NotifyUser`, which looks like this:
+`MainPage` has a method we will call a number of times through our globally-scoped static `MainPage.Current` reference, `NotifyUser` sends messages to the `MainPage` status area and looks like this:
 
 ```c#
         #region NotifyUser code
@@ -272,5 +272,49 @@ The `RegistryPage` is where we launch the fullTrust Win32 process, `RegistryRead
 
         }
 ```
+## Sequence of Events
+
+The sequence of events in RegistryUWP:
+
+*  `RegistryUWP` application is started by the user.
+
+*  `App.OnLaunched()` activates `MainPage` in its `rootFrame`.
+
+*  `MainPage` instantiates, stores a reference to itself in static `MainPage.Current`
+
+*  `MainPage_Loaded()` executes and navigates to `RegistryPage` in its `shellFrame`
+
+* `RegistryPage` instantiates, stores a ref to itself in static `RegistryPage.Current`
+
+* `RegistryPage_Loaded()` executes and launches FullTrustApp defined in `RegistryPackaging` Package.appxmanifest
+
+*  Win32 `RegistryReadAppService` starts and opens an [AppServiceConnection](https://docs.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.AppService.AppServiceConnection) to `RegistryUWP`
+
+*  In `RegistryUWP`, the `OnBackgroundActivated()` event handler in `App.xaml.cs` calls `RegistryPage.RegisterConnection()` to hook up the `App.Connection.RequestReceived` event handler.
+
+* `RegistryPage.RegisterConnection()` then calls `RegistryPage.GetStartupProgramNames()`
+
+* `RegistryPage.GetStartupProgramNames()` creates a `ValueSet`, adds a "verb" or command, calls [AppServiceConnection.SendMessageAsync](https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.appservice.appserviceconnection.sendmessageasync) to send command to the FullTrustProcess and waits for its response.
+
+* `RegistryReadAppService.Connection_RequestReceived` handler fires, reads command, opens the Registry key for the Startup Program names, reads the name values, puts them into a ValueSet, and returns an array of name strings to `RegistryUWP.RegistryPage.GetStartupProgramNames()` through an [AppServiceResponse](https://docs.microsoft.com/en-us/uwp/api/windows.applicationmodel.appservice.appserviceresponse)
+
+* `RegistryPage.GetStartupProgramNames()` receives the `AppServiceResponse`, reads the program names from the ValueSet, and updates the user interface.
+
+* When the user presses the "Add Notepad" (or "Remove Notepad") button on the user interface, the `RegistryButton_Click` handler fires and sends a command verb to the `RegistryReadAppService` to write to the Registry to add or remove `Notepad.exe` from the Startup Programs list.
+
+* The `RegistryReadAppService.Connection_RequestReceived` handler fires, reads the command, and calls `RegistryReadAppService.LaunchElevatedRegistryWrite()` to launch an elevated process to write to the Registry.  Writing to the HKEY_LOCAL_MACHINE hive requires Administrator privilege.
+
+* `LaunchElevatedRegistryWrite()` creates a [ProcessStartInfo](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.processstartinfo?view=netframework-4.7.2) object and populates it with the proxy path to the `ElevatedRegistryWrite.exe` application inside `RegistryPackaging` APPX package.  It then tries to start the process through the [Process.Start](https://docs.microsoft.com/en-us/dotnet/api/system.diagnostics.process.start?view=netframework-4.7.2) method.
+
+* Windows then launches an elevation dialog to ask the user for Administrator credentials.  If denied or canceled by the user, Windows returns E_FAIL to `RegistryReadAppService.LaunchElevatedRegistryWrite()` and an `exitCode` of 1 will be returned to `RegistryUWP`.  If approved, Windows then launches `ElevatedRegistryWrite.exe` with Administrator privilege to write to the Registry.
+
+* `ElevatedRegistryWrite.exe` is very simple.  It opens the Startup Programs key at `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` and reads the values, which are the Startup Program key names.  It looks for "notepad" and if it finds this, it writes to the key to delete the value, otherwise it adds `Notepad.exe` to the list of key values.  If everything went well, it returns an exit code of 0 to `RegistryReadAppService.LaunchElevatedRegistryWrite()`.  If there is any exception, it returns an exit code of 2.  Recall, the exit code of 1 was if the Windows elevation dialog was canceled by the user.  
+
+* `RegistryReadAppService.LaunchElevatedRegistryWrite()` then returns the exit code to the `Connection_RequestReceived()` event handler. The `ElevatedRegistryWrite` process ends and the exit code is returned to `RegistryUWP` through the response.  
+
+* `RegistryUWP.RegistryButton_Click()` checks the response for the exit code. If it is 0, it notifies the user of success, and then calls `RegistryUWP.GetStartupProgramNames()` to update the UI with the newly-modified list of Startup Program names.  Otherwise, it notifies the user of any error through `MainPage.NotifyUser`.
+
+* When the user closes `RegistryUWP` and the UWP application ends, that end of the `AppServiceConnection` is closed.  The `RegistryReadAppService` watches for this event and when it occurs, its `Connection_ServiceClosed()` event handler is fired and the `RegistryReadAppService` exits.
+
 
 
