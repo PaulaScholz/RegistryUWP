@@ -333,7 +333,7 @@ Also, you'll need to add `System.Runtime.WindowsRuntime` from `C:\Windows\Micros
 
 ## ElevatedRegistryWrite Project - Win32 application
 
-This is a "headless" Win32 console application with no console window, similar to the `RegistryReadAppService`, but it only launched as an elevated process to write to the Registry, and does not communicate with the other processes except by its exit code. It has no special requirements other than to be launched as elevated.
+This is a "headless" Win32 console application with no console window, similar to the `RegistryReadAppService`, but it only launches as an elevated process to write to the Registry, and does not communicate with the other processes except by its exit code. It has no special requirements other than to be launched as elevated.
 
 ## More information
 
