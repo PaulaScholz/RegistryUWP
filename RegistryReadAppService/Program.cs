@@ -73,7 +73,7 @@ namespace RegistryReadAppService
                 // Select the Application tab and change the Output Type from Windows Application to 
                 // Console Application.  A "Windows Application" is simply a headless console app.
 
-                //Console.WriteLine("Detatch your debugger from the UWP app and attach it to WinSatInfo.");
+                //Console.WriteLine("Detatch your debugger from the UWP app and attach it to RegistryReadAppService.");
                 //Console.WriteLine("Set your breakpoint in RegistryReadAppService and then press Enter to continue.");
                 //Console.ReadLine();
 
