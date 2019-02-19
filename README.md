@@ -288,9 +288,9 @@ The sequence of events in RegistryUWP:
 
 * `RegistryPage_Loaded()` executes and launches FullTrustApp defined in `RegistryPackaging` Package.appxmanifest
 
-*  Win32 `RegistryReadAppService` starts and opens an [AppServiceConnection](https://docs.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.AppService.AppServiceConnection) to `RegistryUWP`
+*  The FullTrust Win32 `RegistryReadAppService` starts and opens an [AppServiceConnection](https://docs.microsoft.com/en-us/uwp/api/Windows.ApplicationModel.AppService.AppServiceConnection) to `RegistryUWP`
 
-*  In `RegistryUWP`, the `OnBackgroundActivated()` event handler in `App.xaml.cs` calls `RegistryPage.RegisterConnection()` to hook up the `App.Connection.RequestReceived` event handler.
+*  In `RegistryUWP`, the `OnBackgroundActivated()` event handler in `App.xaml.cs` calls `RegistryPage.RegisterConnection()` through the static `RegistryPage.Current` reference to hook up the `App.Connection.RequestReceived` event to its `Connection_RequestReceived()` handler.
 
 * `RegistryPage.RegisterConnection()` then calls `RegistryPage.GetStartupProgramNames()`
 
@@ -308,7 +308,7 @@ The sequence of events in RegistryUWP:
 
 * Windows then launches an elevation dialog to ask the user for Administrator credentials.  If denied or canceled by the user, Windows returns E_FAIL to `RegistryReadAppService.LaunchElevatedRegistryWrite()` and an `exitCode` of 1 will be returned to `RegistryUWP`.  If approved, Windows then launches `ElevatedRegistryWrite.exe` with Administrator privilege to write to the Registry.
 
-* `ElevatedRegistryWrite.exe` is very simple.  It opens the Startup Programs key at `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` and reads the values, which are the Startup Program key names.  It looks for "notepad" and if it finds this, it writes to the key to delete the value, otherwise it adds `Notepad.exe` to the list of key values.  If everything went well, it returns an exit code of 0 to `RegistryReadAppService.LaunchElevatedRegistryWrite()`.  If there is any exception, it returns an exit code of 2.  Recall, the exit code of 1 was if the Windows elevation dialog was canceled by the user.  
+* Win32 `ElevatedRegistryWrite.exe` is very simple.  It opens the Startup Programs key at `HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run` and reads the values, which are the Startup Program key names.  It looks for "notepad" and if it finds this, it writes to the key to delete the value, otherwise it adds `Notepad.exe` to the list of key values.  If everything went well, it returns an exit code of 0 to `RegistryReadAppService.LaunchElevatedRegistryWrite()`.  If there is any exception, it returns an exit code of 2.  Recall, the exit code of 1 was if the Windows elevation dialog was canceled by the user.  
 
 * `RegistryReadAppService.LaunchElevatedRegistryWrite()` then returns the exit code to the `Connection_RequestReceived()` event handler. The `ElevatedRegistryWrite` process ends and the exit code is returned to `RegistryUWP` through the response.  
 
@@ -316,5 +316,37 @@ The sequence of events in RegistryUWP:
 
 * When the user closes `RegistryUWP` and the UWP application ends, that end of the `AppServiceConnection` is closed.  The `RegistryReadAppService` watches for this event and when it occurs, its `Connection_ServiceClosed()` event handler is fired and the `RegistryReadAppService` exits.
 
+## RegistryReadAppService Project - Win32 application
+
+The `RegistryReadAppService` is our Desktop Bridge app service and instead of being a standard UWP [IBackgroundTask](https://docs.microsoft.com/en-us/windows/uwp/launch-resume/support-your-app-with-background-tasks), it is a simple "headless" Win32 "Windows" application with no window.
+
+Both `RegistryReadAppService` and `ElevatedRegistryWrite` began development as console applications, but when they became ready for integration into the RegistryUWP solution, their Output Types were changed to "Windows Application" in their project properties, which them makes them "headless" console apps with no console window.  
+
+<figure>
+  <img src="/images/RegistryReadAppService_windowsApp.PNG" alt="RegistryReadAppService Output Type"/>
+  <figcaption>RegistryReadAppService Output Type</figcaption>
+</figure>
+
+Because the RegistryReadAppService needs Desktop Bridge AppServiceConnection support, you need to reference `Windows.winmd` from `C:\Program Files (x86)\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd`, or whatever version of Windows after 1809 (build 17763) you happen to be using.
+
+Also, you'll need to add `System.Runtime.WindowsRuntime` from `C:\Windows\Microsoft.NET\Framework\v4.0.30319\System.Runtime.WindowsRuntime.dll`.  Both of these references are needed for Desktop Bridge to work in a Win32 .Net application.
+
+## ElevatedRegistryWrite Project - Win32 application
+
+This is a "headless" Win32 console application with no console window, similar to the `RegistryReadAppService`, but it only launched as an elevated process to write to the Registry, and does not communicate with the other processes except by its exit code. It has no special requirements other than to be launched as elevated.
+
+## More information
+
+There is an excellent three-part series of articles by Stefan Wick that show how to build UWP with Desktop extensions.  These may be found here:
+
+*  https://stefanwick.com/2018/04/06/uwp-with-desktop-extension-part-1/
+* https://stefanwick.com/2018/04/06/uwp-with-desktop-extension-part-2/
+* https://stefanwick.com/2018/04/16/uwp-with-desktop-extension-part-3/
+
+## RegistryUWP on Windows Store
+
+You may install an x64 version of `RegistryUWP` here:
+
+https://www.microsoft.com/en-us/p/registryuwp/9pkjl872p092?rtc=1&activetab=pivot:overviewtab
 
 
