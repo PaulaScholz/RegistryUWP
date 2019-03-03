@@ -199,6 +199,9 @@ namespace RegistryReadAppService
             }
             catch (Exception ex)
             {
+                // default exception exitCode
+                exitCode = 3;
+
                 if (ex.HResult == E_FAIL)
                 {
                     // the user cancelled the elevated process
